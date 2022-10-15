@@ -1,0 +1,56 @@
+def get_min():
+    while True:
+        try:
+            min_mpg = float(input(‘Enter minimum mpg ==> ‘))
+            if min_mpg <= 0:
+                print(‘Fuel economy must be greater than 0’)
+                continue
+            elif min_mpg > 100:
+                print(‘Fuel economy must be less than 100’)
+                continue
+            else:
+                print()
+                return min_mpg
+        except ValueError:
+            print(‘You must enter a number for value economy’)
+def get_input():
+    while True:
+        try:
+            input_1 = input(‘Enter the name of the input vehicle file ==> ‘)
+            input_file = open(input_1, ‘r’)
+            print()
+            return input_file
+        except FileNotFoundError:
+            print(‘Could not open file’, input_1)
+            continue
+
+def get_output():
+    while True:
+        try:
+            output_1 = input(‘Enter the name of the file to output to ==> ‘)
+            output_file = open(output_1,’w’)
+            print()
+            return output_file
+        except IOError:
+            print(‘There is an IO Error’,output_1)
+            continue
+def main():
+    min_mpg = get_min()
+    input_file = get_input()
+    output_file = get_output()
+    lines = input_file.readlines()
+    lines.pop(0)
+    for line in lines:
+        elements_l = []
+        elements_l = line.split(‘    ‘)
+        try:
+            if float(elements_l[-3]) >= min_mpg:
+                output_file.write(‘{} {}    {}  {:.3f}\n’.format(elements_l[0],elements_l[1],elements_l[2],float(elements_l[-3])))
+                continue
+else:
+                continue
+        except ValueError:
+            print(‘Could not convert {} for vehicle {} {} {}’.format(elements_l[-3],elements_l[0],elements_l[1],elements_l[2]))
+            continue
+
+main()
